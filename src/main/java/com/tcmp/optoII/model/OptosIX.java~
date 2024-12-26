@@ -1,0 +1,104 @@
+package com.tcmp.optoIX.model;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
+public class OptosIX {
+    private String inst; // CLAVE DE LA INSTITUCIÓN
+    private String oficina; // OFICINA QUE REALIZA LA OPERACIÓN
+    private String lei; // CÓDIGO LEI
+    private String contraparte; // CLAVE DE LA CONTRAPARTE
+    private LocalDate feConOpe; // FECHA DE CONCERTACIÓN
+    private LocalDate feIniOpe; // FECHA DE INICIO DEL PERÍODO DE EJERCICIO
+    private LocalDate feVenOpe; // FECHA DE TÉRMINO DEL PERÍODO DE EJERCICIO
+    private Integer otroDer; // OTRO TIPO DE DERIVADO VINCULADO
+    private Integer diasLiq; // NÚMERO DE DÍAS HÁBILES PARA LIQUIDAR
+    private String posicion; // POSICIÓN EN LA OPERACIÓN
+    private String tipOpc; // TIPO DE OPCIÓN
+    private String tipOpc2; // TIPO DE OPCIÓN DOS
+    private String opcEjer; // MODALIDAD DEL EJERCICIO
+    private String objetivo; // OBJETIVO DE LA OPERACIÓN
+    private BigDecimal impBase; // IMPORTE BASE O DE REFERENCIA
+    private Integer mdaImp; // MONEDA DEL IMPORTE BASE
+    private String liquida; // FORMA DE LIQUIDACIÓN
+    private Integer mdaLiquida; // MONEDA DE LIQUIDACIÓN
+    private LocalDate feFlu; // FECHA DE INICIO DEL PRIMER FLUJO
+    private LocalDate fenFlu; // FECHA DE VENCIMIENTO DEL ÚLTIMO FLUJO
+    private String detFlujo; // ACUERDO DE DÍAS INHÁBILES
+    private Integer nuFlujo; // NÚMERO TOTAL DE FLUJOS
+    private Integer intFlujo; // INTERVALO DEL FLUJO
+    private String tasaRef; // TASA DE REFERENCIA
+    private Integer revTref; // INTERVALO DE REVISIÓN DE LA TASA
+    private String anio; // AÑO COMERCIAL O NATURAL
+    private String feRef; // MODALIDAD DE LA TASA DE REFERENCIA
+    private BigDecimal facTasa; // FACTOR APLICABLE A LA TASA
+    private BigDecimal spread; // PUNTOS PORCENTUALES APLICABLES
+    private BigDecimal tasaFija; // VALOR DE LA TASA FIJA
+    private Integer calLiq; // CÁLCULO DE LIQUIDACIÓN
+    private Integer calLiq2; // CÁLCULO DE LIQUIDACIÓN DOS
+    private BigDecimal facLiq; // FACTOR APLICADO A LA LIQUIDACIÓN
+    private BigDecimal dif; // DIFERENCIAL APLICADO
+    private BigDecimal facLiq2; // FACTOR APLICADO A LA LIQUIDACIÓN DOS
+    private BigDecimal dif2; // DIFERENCIAL APLICADO DOS
+    private String mmriaPago; // MEMORIA DEL PAGO
+    private Integer conTerm; // CONDICIÓN DE TERMINACIÓN
+    private Integer nCan; // NÚMERO DE OCURRENCIAS
+    private String quanto; // EXISTENCIA DE TIPO DE CAMBIO FORWARD
+    private BigDecimal tcQuant; // TIPO DE CAMBIO FORWARD
+    private BigDecimal prima; // IMPORTE DE LA PRIMA
+    private Integer mdaPrima; // MONEDA DE LA PRIMA
+    private LocalDate fePrim; // FECHA DE PAGO/COBRO DE LA PRIMA
+    private Integer paqEst; // OPERACIÓN PARTE DE UNA "OPERACIÓN ESTRUCTURADA"
+    private String idPaqEst; // CLAVE O FOLIO DEL PAQUETE
+    private Integer conPaqEst; // NÚMERO CONSECUTIVO
+    private String tipDer; // TIPO DE PRODUCTO DERIVADO
+    private String suby; // TIPO DE SUBYACENTE
+    private String cveTit; // CLAVE DEL VALOR
+    private Integer intEje; // INTERVALO DE LOS POSIBLES EJERCICIOS
+    private Integer intMon; // INTERVALO DE MONITOREO
+    private Integer nMonSuby; // NÚMERO DE DÍAS UTILIZADO
+    private Integer nuToEje; // NÚMERO TOTAL DE POSIBLES EJERCICIOS
+    private String numIdOpSby; // NÚMERO DE IDENTIFICACIÓN SUBYACENTE
+    private Integer seccionSwp; // SECCIÓN DEL FORMULARIO SWAPS
+    private Integer numSuby; // NÚMERO DE UNIDADES DEL SUBYACENTE
+    private Integer mdaSuby; // MONEDA DEL SUBYACENTE
+    private BigDecimal precioEjer; // PRECIO UNITARIO O TASA DE EJERCICIO
+    private Integer tipPrecio; // FORMA EN LA QUE ESTÁ REPRESENTADO EL PRECIO
+    private Integer mdaPrecio; // MONEDA DEL PRECIO
+    private Integer calEjercicio; // CÁLCULO PARA DETERMINAR EL EJERCICIO
+    private Integer nEjercicio; // NÚMERO DE DÍAS UTILIZADO
+    private BigDecimal precioEjer2; // PRECIO UNITARIO O TASA DE EJERCICIO DOS
+    private Integer tipPrecio2; // FORMA EN LA QUE ESTÁ REPRESENTADO EL PRECIO DOS
+    private Integer mdaPrecio2; // MONEDA DEL PRECIO DOS
+    private Integer calEjercicio2; // CÁLCULO PARA ESTABLECER EL EJERCICIO DOS
+    private Integer nEjercicio2; // NÚMERO DE DÍAS UTILIZADO DOS
+    private BigDecimal precioInicial; // PRECIO INICIAL DEL SUBYACENTE
+    private BigDecimal preSup; // PRECIO DE LA BARRERA SUPERIOR
+    private BigDecimal preInf; // PRECIO DE LA BARRERA INFERIOR
+    private String modPre; // MODALIDAD DEL PRECIO BARRERA
+    private Integer intMonBa; // INTERVALO DEL MONITOREO
+    private LocalDate feIniVen; // FECHA DE INICIO DE LA VENTANA
+    private LocalDate feVenVen; // FECHA DE TÉRMINO DE LA VENTANA
+    private BigDecimal preSup2; // PRECIO DE LA BARRERA SUPERIOR DOS
+    private BigDecimal preInf2; // PRECIO DE LA BARRERA INFERIOR DOS
+    private String modPre2; // MODALIDAD DEL PRECIO BARRERA DOS
+    private Integer intMonBa2; // INTERVALO DEL MONITOREO DOS
+    private LocalDate feIniVen2; // FECHA DE INICIO DE LA VENTANA DOS
+    private LocalDate feVenVen2; // FECHA DE TÉRMINO DE LA VENTANA DOS
+    private BigDecimal rebate; // REBATE
+    private String callable; // CALLABLE
+    private String revOp; // REVISIÓN DE LOS "PARÁMETROS PRINCIPALES"
+    private Integer broker; // PLATAFORMA DE NEGOCIACIÓN
+    private String socioLiq; // SOCIO LIQUIDADOR
+    private Integer camCom; // CÁMARA DE COMPENSACIÓN
+    private Integer repDev; // REPOSITORIO DE DERIVADOS
+    private String agCal; // AGENTE DE CÁLCULO Y LIQUIDACIÓN
+    private String upi; // IDENTIFICADOR ÚNICO DE PRODUCTO
+    private BigDecimal delta; // VALOR DEL PARÁMETRO DELTA
+    private BigDecimal vol; // VOLATILIDAD IMPLÍCITA
+    private String idContAnf; // IDENTIFICACIÓN DEL CONTRATO ANFITRIÓN
+    private String numIdInst; // NÚMERO DE IDENTIFICACIÓN INTERNO
+    private String numId; // NÚMERO DE IDENTIFICACIÓN
+    private String uti; // IDENTIFICADOR ÚNICO DE TRANSACCIÓN
+    private String identificador; // Indica si es ON, A o B
+}

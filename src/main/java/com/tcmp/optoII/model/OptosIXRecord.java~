@@ -1,0 +1,883 @@
+package com.tcmp.optoIX.model;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
+public class OptosIXRecord {
+    private String inst; // CLAVE DE LA INSTITUCIÓN
+    private String oficina; // OFICINA QUE REALIZA LA OPERACIÓN
+    private String lei; // CÓDIGO LEI
+    private String contraparte; // CLAVE DE LA CONTRAPARTE
+    private String feConOpe; // FECHA DE CONCERTACIÓN
+    private String feIniOpe; // FECHA DE INICIO DEL PERÍODO DE EJERCICIO
+    private String feVenOpe; // FECHA DE TÉRMINO DEL PERÍODO DE EJERCICIO
+    private Integer otroDer; // OTRO TIPO DE DERIVADO VINCULADO
+    private Integer diasLiq; // NÚMERO DE DÍAS HÁBILES PARA LIQUIDAR
+    private String posicion; // POSICIÓN EN LA OPERACIÓN
+    private String tipOpc; // TIPO DE OPCIÓN
+    private String tipOpc2; // TIPO DE OPCIÓN DOS
+    private String opcEjer; // MODALIDAD DEL EJERCICIO
+    private String objetivo; // OBJETIVO DE LA OPERACIÓN
+    private BigDecimal impBase; // IMPORTE BASE O DE REFERENCIA
+    private Integer mdaImp; // MONEDA DEL IMPORTE BASE
+    private String liquida; // FORMA DE LIQUIDACIÓN
+    private Integer mdaLiquida; // MONEDA DE LIQUIDACIÓN
+    private String feFlu; // FECHA DE INICIO DEL PRIMER FLUJO
+    private String fenFlu; // FECHA DE VENCIMIENTO DEL ÚLTIMO FLUJO
+    private String detFlujo; // ACUERDO DE DÍAS INHÁBILES
+    private Integer nuFlujo; // NÚMERO TOTAL DE FLUJOS
+    private Integer intFlujo; // INTERVALO DEL FLUJO
+    private String tasaRef; // TASA DE REFERENCIA
+    private Integer revTref; // INTERVALO DE REVISIÓN DE LA TASA
+    private String anio; // AÑO COMERCIAL O NATURAL
+    private String feRef; // MODALIDAD DE LA TASA DE REFERENCIA
+    private BigDecimal facTasa; // FACTOR APLICABLE A LA TASA
+    private BigDecimal spread; // PUNTOS PORCENTUALES APLICABLES
+    private BigDecimal tasaFija; // VALOR DE LA TASA FIJA
+    private Integer calLiq; // CÁLCULO DE LIQUIDACIÓN
+    private Integer calLiq2; // CÁLCULO DE LIQUIDACIÓN DOS
+    private BigDecimal facLiq; // FACTOR APLICADO A LA LIQUIDACIÓN
+    private BigDecimal dif; // DIFERENCIAL APLICADO
+    private BigDecimal facLiq2; // FACTOR APLICADO A LA LIQUIDACIÓN DOS
+    private BigDecimal dif2; // DIFERENCIAL APLICADO DOS
+    private String mmriaPago; // MEMORIA DEL PAGO
+    private Integer conTerm; // CONDICIÓN DE TERMINACIÓN
+    private Integer nCan; // NÚMERO DE OCURRENCIAS
+    private String quanto; // EXISTENCIA DE TIPO DE CAMBIO FORWARD
+    private BigDecimal tcQuant; // TIPO DE CAMBIO FORWARD
+    private BigDecimal prima; // IMPORTE DE LA PRIMA
+    private Integer mdaPrima; // MONEDA DE LA PRIMA
+    private String fePrim; // FECHA DE PAGO/COBRO DE LA PRIMA
+    private Integer paqEst; // OPERACIÓN PARTE DE UNA "OPERACIÓN ESTRUCTURADA"
+    private String idPaqEst; // CLAVE O FOLIO DEL PAQUETE
+    private Integer conPaqEst; // NÚMERO CONSECUTIVO
+    private String tipDer; // TIPO DE PRODUCTO DERIVADO
+    private String suby; // TIPO DE SUBYACENTE
+    private String cveTit; // CLAVE DEL VALOR
+    private Integer intEje; // INTERVALO DE LOS POSIBLES EJERCICIOS
+    private Integer intMon; // INTERVALO DE MONITOREO
+    private Integer nMonSuby; // NÚMERO DE DÍAS UTILIZADO
+    private Integer nuToEje; // NÚMERO TOTAL DE POSIBLES EJERCICIOS
+    private String numIdOpSby; // NÚMERO DE IDENTIFICACIÓN SUBYACENTE
+    private Integer seccionSwp; // SECCIÓN DEL FORMULARIO SWAPS
+    private Integer numSuby; // NÚMERO DE UNIDADES DEL SUBYACENTE
+    private Integer mdaSuby; // MONEDA DEL SUBYACENTE
+    private BigDecimal precioEjer; // PRECIO UNITARIO O TASA DE EJERCICIO
+    private Integer tipPrecio; // FORMA EN LA QUE ESTÁ REPRESENTADO EL PRECIO
+    private Integer mdaPrecio; // MONEDA DEL PRECIO
+    private Integer calEjercicio; // CÁLCULO PARA DETERMINAR EL EJERCICIO
+    private Integer nEjercicio; // NÚMERO DE DÍAS UTILIZADO
+    private BigDecimal precioEjer2; // PRECIO UNITARIO O TASA DE EJERCICIO DOS
+    private Integer tipPrecio2; // FORMA EN LA QUE ESTÁ REPRESENTADO EL PRECIO DOS
+    private Integer mdaPrecio2; // MONEDA DEL PRECIO DOS
+    private Integer calEjercicio2; // CÁLCULO PARA ESTABLECER EL EJERCICIO DOS
+    private Integer nEjercicio2; // NÚMERO DE DÍAS UTILIZADO DOS
+    private BigDecimal precioInicial; // PRECIO INICIAL DEL SUBYACENTE
+    private BigDecimal preSup; // PRECIO DE LA BARRERA SUPERIOR
+    private BigDecimal preInf; // PRECIO DE LA BARRERA INFERIOR
+    private String modPre; // MODALIDAD DEL PRECIO BARRERA
+    private Integer intMonBa; // INTERVALO DEL MONITOREO
+    private String feIniVen; // FECHA DE INICIO DE LA VENTANA
+    private String feVenVen; // FECHA DE TÉRMINO DE LA VENTANA
+    private BigDecimal preSup2; // PRECIO DE LA BARRERA SUPERIOR DOS
+    private BigDecimal preInf2; // PRECIO DE LA BARRERA INFERIOR DOS
+    private String modPre2; // MODALIDAD DEL PRECIO BARRERA DOS
+    private Integer intMonBa2; // INTERVALO DEL MONITOREO DOS
+    private String feIniVen2; // FECHA DE INICIO DE LA VENTANA DOS
+    private String feVenVen2; // FECHA DE TÉRMINO DE LA VENTANA DOS
+    private BigDecimal rebate; // REBATE
+    private String callable; // CALLABLE
+    private String revOp; // REVISIÓN DE LOS "PARÁMETROS PRINCIPALES"
+    private Integer broker; // PLATAFORMA DE NEGOCIACIÓN
+    private String socioLiq; // SOCIO LIQUIDADOR
+    private Integer camCom; // CÁMARA DE COMPENSACIÓN
+    private Integer repDev; // REPOSITORIO DE DERIVADOS
+    private String agCal; // AGENTE DE CÁLCULO Y LIQUIDACIÓN
+    private String upi; // IDENTIFICADOR ÚNICO DE PRODUCTO
+    private BigDecimal delta; // VALOR DEL PARÁMETRO DELTA
+    private BigDecimal vol; // VOLATILIDAD IMPLÍCITA
+    private String idContAnf; // IDENTIFICACIÓN DEL CONTRATO ANFITRIÓN
+    private String numIdInst; // NÚMERO DE IDENTIFICACIÓN INTERNO
+    private String numId; // NÚMERO DE IDENTIFICACIÓN
+    private String uti; // IDENTIFICADOR ÚNICO DE TRANSACCIÓN
+    private String identificador; // Indica si es ON, A o B
+
+    public OptosIXRecord() {
+    }
+
+    public String getInst() {
+        return inst;
+    }
+
+    public void setInst(String inst) {
+        this.inst = inst;
+    }
+
+    public String getOficina() {
+        return oficina;
+    }
+
+    public void setOficina(String oficina) {
+        this.oficina = oficina;
+    }
+
+    public String getLei() {
+        return lei;
+    }
+
+    public void setLei(String lei) {
+        this.lei = lei;
+    }
+
+    public String getContraparte() {
+        return contraparte;
+    }
+
+    public void setContraparte(String contraparte) {
+        this.contraparte = contraparte;
+    }
+
+    public LocalDate getFeConOpe() {
+        return feConOpe;
+    }
+
+    public void setFeConOpe(LocalDate feConOpe) {
+        this.feConOpe = feConOpe;
+    }
+
+    public LocalDate getFeIniOpe() {
+        return feIniOpe;
+    }
+
+    public void setFeIniOpe(LocalDate feIniOpe) {
+        this.feIniOpe = feIniOpe;
+    }
+
+    public LocalDate getFeVenOpe() {
+        return feVenOpe;
+    }
+
+    public void setFeVenOpe(LocalDate feVenOpe) {
+        this.feVenOpe = feVenOpe;
+    }
+
+    public Integer getOtroDer() {
+        return otroDer;
+    }
+
+    public void setOtroDer(Integer otroDer) {
+        this.otroDer = otroDer;
+    }
+
+    public Integer getDiasLiq() {
+        return diasLiq;
+    }
+
+    public void setDiasLiq(Integer diasLiq) {
+        this.diasLiq = diasLiq;
+    }
+
+    public String getPosicion() {
+        return posicion;
+    }
+
+    public void setPosicion(String posicion) {
+        this.posicion = posicion;
+    }
+
+    public String getTipOpc() {
+        return tipOpc;
+    }
+
+    public void setTipOpc(String tipOpc) {
+        this.tipOpc = tipOpc;
+    }
+
+    public String getTipOpc2() {
+        return tipOpc2;
+    }
+
+    public void setTipOpc2(String tipOpc2) {
+        this.tipOpc2 = tipOpc2;
+    }
+
+    public String getOpcEjer() {
+        return opcEjer;
+    }
+
+    public void setOpcEjer(String opcEjer) {
+        this.opcEjer = opcEjer;
+    }
+
+    public String getObjetivo() {
+        return objetivo;
+    }
+
+    public void setObjetivo(String objetivo) {
+        this.objetivo = objetivo;
+    }
+
+    public BigDecimal getImpBase() {
+        return impBase;
+    }
+
+    public void setImpBase(BigDecimal impBase) {
+        this.impBase = impBase;
+    }
+
+    public Integer getMdaImp() {
+        return mdaImp;
+    }
+
+    public void setMdaImp(Integer mdaImp) {
+        this.mdaImp = mdaImp;
+    }
+
+    public String getLiquida() {
+        return liquida;
+    }
+
+    public void setLiquida(String liquida) {
+        this.liquida = liquida;
+    }
+
+    public Integer getMdaLiquida() {
+        return mdaLiquida;
+    }
+
+    public void setMdaLiquida(Integer mdaLiquida) {
+        this.mdaLiquida = mdaLiquida;
+    }
+
+    public LocalDate getFeFlu() {
+        return feFlu;
+    }
+
+    public void setFeFlu(LocalDate feFlu) {
+        this.feFlu = feFlu;
+    }
+
+    public LocalDate getFenFlu() {
+        return fenFlu;
+    }
+
+    public void setFenFlu(LocalDate fenFlu) {
+        this.fenFlu = fenFlu;
+    }
+
+    public String getDetFlujo() {
+        return detFlujo;
+    }
+
+    public void setDetFlujo(String detFlujo) {
+        this.detFlujo = detFlujo;
+    }
+
+    public Integer getNuFlujo() {
+        return nuFlujo;
+    }
+
+    public void setNuFlujo(Integer nuFlujo) {
+        this.nuFlujo = nuFlujo;
+    }
+
+    public Integer getIntFlujo() {
+        return intFlujo;
+    }
+
+    public void setIntFlujo(Integer intFlujo) {
+        this.intFlujo = intFlujo;
+    }
+
+    public String getTasaRef() {
+        return tasaRef;
+    }
+
+    public void setTasaRef(String tasaRef) {
+        this.tasaRef = tasaRef;
+    }
+
+    public Integer getRevTref() {
+        return revTref;
+    }
+
+    public void setRevTref(Integer revTref) {
+        this.revTref = revTref;
+    }
+
+    public String getAnio() {
+        return anio;
+    }
+
+    public void setAnio(String anio) {
+        this.anio = anio;
+    }
+
+    public String getFeRef() {
+        return feRef;
+    }
+
+    public void setFeRef(String feRef) {
+        this.feRef = feRef;
+    }
+
+    public BigDecimal getFacTasa() {
+        return facTasa;
+    }
+
+    public void setFacTasa(BigDecimal facTasa) {
+        this.facTasa = facTasa;
+    }
+
+    public BigDecimal getSpread() {
+        return spread;
+    }
+
+    public void setSpread(BigDecimal spread) {
+        this.spread = spread;
+    }
+
+    public BigDecimal getTasaFija() {
+        return tasaFija;
+    }
+
+    public void setTasaFija(BigDecimal tasaFija) {
+        this.tasaFija = tasaFija;
+    }
+
+    public Integer getCalLiq() {
+        return calLiq;
+    }
+
+    public void setCalLiq(Integer calLiq) {
+        this.calLiq = calLiq;
+    }
+
+    public Integer getCalLiq2() {
+        return calLiq2;
+    }
+
+    public void setCalLiq2(Integer calLiq2) {
+        this.calLiq2 = calLiq2;
+    }
+
+    public BigDecimal getFacLiq() {
+        return facLiq;
+    }
+
+    public void setFacLiq(BigDecimal facLiq) {
+        this.facLiq = facLiq;
+    }
+
+    public BigDecimal getDif() {
+        return dif;
+    }
+
+    public void setDif(BigDecimal dif) {
+        this.dif = dif;
+    }
+
+    public BigDecimal getFacLiq2() {
+        return facLiq2;
+    }
+
+    public void setFacLiq2(BigDecimal facLiq2) {
+        this.facLiq2 = facLiq2;
+    }
+
+    public BigDecimal getDif2() {
+        return dif2;
+    }
+
+    public void setDif2(BigDecimal dif2) {
+        this.dif2 = dif2;
+    }
+
+    public String getMmriaPago() {
+        return mmriaPago;
+    }
+
+    public void setMmriaPago(String mmriaPago) {
+        this.mmriaPago = mmriaPago;
+    }
+
+    public Integer getConTerm() {
+        return conTerm;
+    }
+
+    public void setConTerm(Integer conTerm) {
+        this.conTerm = conTerm;
+    }
+
+    public Integer getnCan() {
+        return nCan;
+    }
+
+    public void setnCan(Integer nCan) {
+        this.nCan = nCan;
+    }
+
+    public String getQuanto() {
+        return quanto;
+    }
+
+    public void setQuanto(String quanto) {
+        this.quanto = quanto;
+    }
+
+    public BigDecimal getTcQuant() {
+        return tcQuant;
+    }
+
+    public void setTcQuant(BigDecimal tcQuant) {
+        this.tcQuant = tcQuant;
+    }
+
+    public BigDecimal getPrima() {
+        return prima;
+    }
+
+    public void setPrima(BigDecimal prima) {
+        this.prima = prima;
+    }
+
+    public Integer getMdaPrima() {
+        return mdaPrima;
+    }
+
+    public void setMdaPrima(Integer mdaPrima) {
+        this.mdaPrima = mdaPrima;
+    }
+
+    public LocalDate getFePrim() {
+        return fePrim;
+    }
+
+    public void setFePrim(LocalDate fePrim) {
+        this.fePrim = fePrim;
+    }
+
+    public Integer getPaqEst() {
+        return paqEst;
+    }
+
+    public void setPaqEst(Integer paqEst) {
+        this.paqEst = paqEst;
+    }
+
+    public String getIdPaqEst() {
+        return idPaqEst;
+    }
+
+    public void setIdPaqEst(String idPaqEst) {
+        this.idPaqEst = idPaqEst;
+    }
+
+    public Integer getConPaqEst() {
+        return conPaqEst;
+    }
+
+    public void setConPaqEst(Integer conPaqEst) {
+        this.conPaqEst = conPaqEst;
+    }
+
+    public String getTipDer() {
+        return tipDer;
+    }
+
+    public void setTipDer(String tipDer) {
+        this.tipDer = tipDer;
+    }
+
+    public String getSuby() {
+        return suby;
+    }
+
+    public void setSuby(String suby) {
+        this.suby = suby;
+    }
+
+    public String getCveTit() {
+        return cveTit;
+    }
+
+    public void setCveTit(String cveTit) {
+        this.cveTit = cveTit;
+    }
+
+    public Integer getIntEje() {
+        return intEje;
+    }
+
+    public void setIntEje(Integer intEje) {
+        this.intEje = intEje;
+    }
+
+    public Integer getIntMon() {
+        return intMon;
+    }
+
+    public void setIntMon(Integer intMon) {
+        this.intMon = intMon;
+    }
+
+    public Integer getnMonSuby() {
+        return nMonSuby;
+    }
+
+    public void setnMonSuby(Integer nMonSuby) {
+        this.nMonSuby = nMonSuby;
+    }
+
+    public Integer getNuToEje() {
+        return nuToEje;
+    }
+
+    public void setNuToEje(Integer nuToEje) {
+        this.nuToEje = nuToEje;
+    }
+
+    public String getNumIdOpSby() {
+        return numIdOpSby;
+    }
+
+    public void setNumIdOpSby(String numIdOpSby) {
+        this.numIdOpSby = numIdOpSby;
+    }
+
+    public Integer getSeccionSwp() {
+        return seccionSwp;
+    }
+
+    public void setSeccionSwp(Integer seccionSwp) {
+        this.seccionSwp = seccionSwp;
+    }
+
+    public Integer getNumSuby() {
+        return numSuby;
+    }
+
+    public void setNumSuby(Integer numSuby) {
+        this.numSuby = numSuby;
+    }
+
+    public Integer getMdaSuby() {
+        return mdaSuby;
+    }
+
+    public void setMdaSuby(Integer mdaSuby) {
+        this.mdaSuby = mdaSuby;
+    }
+
+    public BigDecimal getPrecioEjer() {
+        return precioEjer;
+    }
+
+    public void setPrecioEjer(BigDecimal precioEjer) {
+        this.precioEjer = precioEjer;
+    }
+
+    public Integer getTipPrecio() {
+        return tipPrecio;
+    }
+
+    public void setTipPrecio(Integer tipPrecio) {
+        this.tipPrecio = tipPrecio;
+    }
+
+    public Integer getMdaPrecio() {
+        return mdaPrecio;
+    }
+
+    public void setMdaPrecio(Integer mdaPrecio) {
+        this.mdaPrecio = mdaPrecio;
+    }
+
+    public Integer getCalEjercicio() {
+        return calEjercicio;
+    }
+
+    public void setCalEjercicio(Integer calEjercicio) {
+        this.calEjercicio = calEjercicio;
+    }
+
+    public Integer getnEjercicio() {
+        return nEjercicio;
+    }
+
+    public void setnEjercicio(Integer nEjercicio) {
+        this.nEjercicio = nEjercicio;
+    }
+
+    public BigDecimal getPrecioEjer2() {
+        return precioEjer2;
+    }
+
+    public void setPrecioEjer2(BigDecimal precioEjer2) {
+        this.precioEjer2 = precioEjer2;
+    }
+
+    public Integer getTipPrecio2() {
+        return tipPrecio2;
+    }
+
+    public void setTipPrecio2(Integer tipPrecio2) {
+        this.tipPrecio2 = tipPrecio2;
+    }
+
+    public Integer getMdaPrecio2() {
+        return mdaPrecio2;
+    }
+
+    public void setMdaPrecio2(Integer mdaPrecio2) {
+        this.mdaPrecio2 = mdaPrecio2;
+    }
+
+    public Integer getCalEjercicio2() {
+        return calEjercicio2;
+    }
+
+    public void setCalEjercicio2(Integer calEjercicio2) {
+        this.calEjercicio2 = calEjercicio2;
+    }
+
+    public Integer getnEjercicio2() {
+        return nEjercicio2;
+    }
+
+    public void setnEjercicio2(Integer nEjercicio2) {
+        this.nEjercicio2 = nEjercicio2;
+    }
+
+    public BigDecimal getPrecioInicial() {
+        return precioInicial;
+    }
+
+    public void setPrecioInicial(BigDecimal precioInicial) {
+        this.precioInicial = precioInicial;
+    }
+
+    public BigDecimal getPreSup() {
+        return preSup;
+    }
+
+    public void setPreSup(BigDecimal preSup) {
+        this.preSup = preSup;
+    }
+
+    public BigDecimal getPreInf() {
+        return preInf;
+    }
+
+    public void setPreInf(BigDecimal preInf) {
+        this.preInf = preInf;
+    }
+
+    public String getModPre() {
+        return modPre;
+    }
+
+    public void setModPre(String modPre) {
+        this.modPre = modPre;
+    }
+
+    public Integer getIntMonBa() {
+        return intMonBa;
+    }
+
+    public void setIntMonBa(Integer intMonBa) {
+        this.intMonBa = intMonBa;
+    }
+
+    public LocalDate getFeIniVen() {
+        return feIniVen;
+    }
+
+    public void setFeIniVen(LocalDate feIniVen) {
+        this.feIniVen = feIniVen;
+    }
+
+    public LocalDate getFeVenVen() {
+        return feVenVen;
+    }
+
+    public void setFeVenVen(LocalDate feVenVen) {
+        this.feVenVen = feVenVen;
+    }
+
+    public BigDecimal getPreSup2() {
+        return preSup2;
+    }
+
+    public void setPreSup2(BigDecimal preSup2) {
+        this.preSup2 = preSup2;
+    }
+
+    public BigDecimal getPreInf2() {
+        return preInf2;
+    }
+
+    public void setPreInf2(BigDecimal preInf2) {
+        this.preInf2 = preInf2;
+    }
+
+    public String getModPre2() {
+        return modPre2;
+    }
+
+    public void setModPre2(String modPre2) {
+        this.modPre2 = modPre2;
+    }
+
+    public Integer getIntMonBa2() {
+        return intMonBa2;
+    }
+
+    public void setIntMonBa2(Integer intMonBa2) {
+        this.intMonBa2 = intMonBa2;
+    }
+
+    public LocalDate getFeIniVen2() {
+        return feIniVen2;
+    }
+
+    public void setFeIniVen2(LocalDate feIniVen2) {
+        this.feIniVen2 = feIniVen2;
+    }
+
+    public LocalDate getFeVenVen2() {
+        return feVenVen2;
+    }
+
+    public void setFeVenVen2(LocalDate feVenVen2) {
+        this.feVenVen2 = feVenVen2;
+    }
+
+    public BigDecimal getRebate() {
+        return rebate;
+    }
+
+    public void setRebate(BigDecimal rebate) {
+        this.rebate = rebate;
+    }
+
+    public String getCallable() {
+        return callable;
+    }
+
+    public void setCallable(String callable) {
+        this.callable = callable;
+    }
+
+    public String getRevOp() {
+        return revOp;
+    }
+
+    public void setRevOp(String revOp) {
+        this.revOp = revOp;
+    }
+
+    public Integer getBroker() {
+        return broker;
+    }
+
+    public void setBroker(Integer broker) {
+        this.broker = broker;
+    }
+
+    public String getSocioLiq() {
+        return socioLiq;
+    }
+
+    public void setSocioLiq(String socioLiq) {
+        this.socioLiq = socioLiq;
+    }
+
+    public Integer getCamCom() {
+        return camCom;
+    }
+
+    public void setCamCom(Integer camCom) {
+        this.camCom = camCom;
+    }
+
+    public Integer getRepDev() {
+        return repDev;
+    }
+
+    public void setRepDev(Integer repDev) {
+        this.repDev = repDev;
+    }
+
+    public String getAgCal() {
+        return agCal;
+    }
+
+    public void setAgCal(String agCal) {
+        this.agCal = agCal;
+    }
+
+    public String getUpi() {
+        return upi;
+    }
+
+    public void setUpi(String upi) {
+        this.upi = upi;
+    }
+
+    public BigDecimal getDelta() {
+        return delta;
+    }
+
+    public void setDelta(BigDecimal delta) {
+        this.delta = delta;
+    }
+
+    public BigDecimal getVol() {
+        return vol;
+    }
+
+    public void setVol(BigDecimal vol) {
+        this.vol = vol;
+    }
+
+    public String getIdContAnf() {
+        return idContAnf;
+    }
+
+    public void setIdContAnf(String idContAnf) {
+        this.idContAnf = idContAnf;
+    }
+
+    public String getNumIdInst() {
+        return numIdInst;
+    }
+
+    public void setNumIdInst(String numIdInst) {
+        this.numIdInst = numIdInst;
+    }
+
+    public String getNumId() {
+        return numId;
+    }
+
+    public void setNumId(String numId) {
+        this.numId = numId;
+    }
+
+    public String getUti() {
+        return uti;
+    }
+
+    public void setUti(String uti) {
+        this.uti = uti;
+    }
+
+    public String getIdentificador() {
+        return identificador;
+    }
+
+    public void setIdentificador(String identificador) {
+        this.identificador = identificador;
+    }
+}

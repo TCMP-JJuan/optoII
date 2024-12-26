@@ -1,0 +1,24 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/FXOptions
+
+camel:
+  springboot:
+    name: MyCamel
+
+greeting: Hello World
+timer:
+  period: 2000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info,health,camelroutes
+  endpoint:
+    health:
+      enabled: true
+    camelroutes:
+      enabled: true
+      read-only: true
