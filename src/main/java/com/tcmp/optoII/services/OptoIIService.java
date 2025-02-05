@@ -36,6 +36,7 @@ public class OptoIIService {
                 .append("TradeMessage.trade.tradeHeader.tradeDate", 1)
                 .append("TradeMessage.trade.product.startDate", 1)
                 .append("TradeMessage.trade.product.endDate", 1)
+                .append("TradeMessage.trade.product.exerciseStyle.expiryDate", 1)
                 .append("TradeMessage.trade.product.buySell", 1)
                 .append("TradeMessage.trade.product.optionType", 1)
                 .append("TradeMessage.trade.product.exerciseStyle.optionExerciseStyle", 1)
@@ -52,6 +53,7 @@ public class OptoIIService {
                 .append("TradeMessage.trade.product.asianFeature.calculationFrequencyType.periodMultiplier", 1)
                 .append("TradeMessage.trade.product.strikeRate", 1)
                 .append("TradeMessage.trade.product.quoteCurrency", 1)
+                .append("TradeMessage.trade.product.baseCurrency", 1)
                 .append("TradeMessage.trade.product.barrierFeature.barrierUpRate", 1)
                 .append("TradeMessage.trade.product.barrierFeature.barrierDownRate", 1)
                 .append("TradeMessage.trade.product.barrierFeature.knockType", 1)
@@ -60,6 +62,7 @@ public class OptoIIService {
                 .append("TradeMessage.trade.tradeHeader.tradeIdentifiers.originatingTradeId.id", 1)
                 .append("TradeMessage.trade.parties.counterparty.partyLei", 1)
                 .append("TradeMessage.trade.tradeHeader.tradeIdentifiers.uniqueTransactionId", 1)
+                .append("TradeMessage.trade.tradeHeader.regulatory.isHedgeTrade", 1)
                 .append("_id", 0);
 
 

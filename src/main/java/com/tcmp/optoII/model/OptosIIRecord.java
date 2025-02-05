@@ -1,6 +1,5 @@
 package com.tcmp.optoII.model;
 
-import java.math.BigDecimal;
 
 public class OptosIIRecord {
     private String inst; // INST

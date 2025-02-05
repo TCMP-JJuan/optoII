@@ -5,11 +5,14 @@ import com.tcmp.optoII.model.OptosIIRecord;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
+import org.apache.commons.lang3.StringUtils;
 import org.bson.Document;
 import org.springframework.stereotype.Component;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 @Component
@@ -23,6 +26,9 @@ public class optosIIRecordTransformer implements Processor {
         data = exchange.getIn().getBody(data.getClass());
         List<Document> tradeDocs = data.get("RealTime");
         List<Document> SensitivityDocs =  data.get("Sensitivities");
+
+        DateTimeFormatter formatter_origin = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
 
         //List<Document> data = exchange.getIn().getBody(List.class); // Lista de documentos
 
@@ -49,71 +55,105 @@ public class optosIIRecordTransformer implements Processor {
 
                 OptosIIRecord optosIIRecord = new OptosIIRecord();
                 //Obtner valores desde los documentos
-
+                String underlyingCurrencyCode = getEmbeddedString(tradeDoc, List.of("TradeMessage", "trade", "product", "underlyingCurrencyCode"));
+                String sourceInstrumentCategory = getEmbeddedString(tradeDoc, List.of("TradeMessage", "trade", "tradeHeader", "sourceSystemProductId", "sourceInstrumentCategory"));
+                String originTradeId = getEmbeddedString(tradeDoc,List.of("TradeMessage", "trade", "tradeIdentifiers", "originatingTradeId", "id"));
+                String scotiaUPI = getEmbeddedString(tradeDoc,List.of("TradeMessage","trade","product","nearLeg","collaterals","bond","assetClassification","scotiaUPI"));
+                String baseCurrency = getEmbeddedString(tradeDoc, List.of("TradeMessage", "trade", "product", "baseCurrency"));
 
                 // Set fixed fields
                 optosIIRecord.setInst("040044");
                 optosIIRecord.setOficina("R");
-                optosIIRecord.setQuanto("N");
-                optosIIRecord.setTcQuant("0");
+
 
                 // Set dynamic fields
                 optosIIRecord.setContrapar(getEmbeddedString(tradeDoc, List.of("TradeMessage", "trade", "parties", "counterparty", "partyLei")));
                 optosIIRecord.setFeConOpe(getEmbeddedString(tradeDoc, List.of("TradeMessage", "trade", "tradeHeader", "tradeDate")));
-                optosIIRecord.setFeIniOpe(getEmbeddedString(tradeDoc, List.of("TradeMessage", "trade", "product", "startDate")));
-                optosIIRecord.setFeVenOpe(getEmbeddedString(tradeDoc, List.of("TradeMessage", "trade", "product", "endDate")));
+                optosIIRecord.setFeIniOpe(getEmbeddedString(tradeDoc, List.of("TradeMessage", "trade", "tradeHeader", "tradeDate")));
+                optosIIRecord.setFeVenOpe(getEmbeddedString(tradeDoc, List.of("TradeMessage", "trade", "product", "expiryDate")));
 
-//                Integer fechas = calcularDiasHabiles(
-//                        LocalDate.parse(getEmbeddedString(tradeDoc, List.of("TradeMessage", "trade", "product", "startDate"))),
-//                        LocalDate.parse(getEmbeddedString(tradeDoc, List.of("TradeMessage", "trade", "product", "endDate")))
-//                );
+                //Falta especificar que dates restar
+                //String expiryDate = getEmbeddedString(tradeDoc, List.of("TradeMessage", "trade", "product", "expiryDate"));
+                String expiryDate = getEmbeddedString(tradeDoc, List.of("TradeMessage", "trade", "product", "exerciseStyle", "expiryDate"));
+                String tradeDate = getEmbeddedString(tradeDoc, List.of("TradeMessage", "trade", "tradeHeader", "tradeDate"));
 
-                optosIIRecord.setDiasLiq(0);
+                LocalDate expiryDt = LocalDate.parse(expiryDate, formatter_origin);
+                LocalDate tradeDt = LocalDate.parse(tradeDate,formatter_origin) ;
+                //Expiry menos trade date. Si este numero es negativo se pone en 0
+                int diasPorVencer = (int) ChronoUnit.DAYS.between(tradeDt, expiryDt);
+                diasPorVencer = Math.max(diasPorVencer, 0);
+                optosIIRecord.setDiasLiq(diasPorVencer);
                 optosIIRecord.setPosicion(getEmbeddedString(tradeDoc, List.of("TradeMessage", "trade", "product", "buySell")));
                 optosIIRecord.setTipOpc(getEmbeddedString(tradeDoc, List.of("TradeMessage", "trade", "product", "optionType")));
                 optosIIRecord.setOpcLiq(getEmbeddedString(tradeDoc, List.of("TradeMessage", "trade", "product", "exerciseStyle", "optionExerciseStyle")));
-                optosIIRecord.setObjetivo(determineObjetivo(tradeDoc));
+
+                //TODO:Duda confirmar mapeo
+                optosIIRecord.setObjetivo(getEmbeddedString(tradeDoc, List.of("TradeMessage", "trade", "tradeHeader", "regulatory", "isHedgeTrade")));
+
                 optosIIRecord.setImpBase(getEmbeddedString(tradeDoc, List.of("TradeMessage", "trade", "product", "underlyingAmount")));
-                optosIIRecord.setMdaImp(getEmbeddedString(tradeDoc, List.of("TradeMessage", "trade", "product", "underlyingCurrencyCode")));
-                optosIIRecord.setLiquida(getEmbeddedString(tradeDoc, List.of("TradeMessage", "trade", "tradeHeader", "settlement", "deliveryMethod")));
+                optosIIRecord.setMdaImp(baseCurrency);
+
+                //TODO:PENDING TO CREATE
+                optosIIRecord.setLiquida("");
+
                 optosIIRecord.setMdaLiquida(getEmbeddedString(tradeDoc, List.of("TradeMessage", "trade", "product", "payOffCurrency")));
+                //FIJO
+                optosIIRecord.setQuanto("N");
+                optosIIRecord.setTcQuant("0");
+
                 optosIIRecord.setPrima(getEmbeddedString(tradeDoc, List.of("TradeMessage", "trade", "product", "premiumPaymentAmount")));
                 optosIIRecord.setMdaPrima(getEmbeddedString(tradeDoc, List.of("TradeMessage", "trade", "product", "premiumPaymentCurrency")));
                 optosIIRecord.setFePrim(getEmbeddedString(tradeDoc, List.of("TradeMessage", "trade", "product", "premiumPaymentDate")));
+
+                //TODO:PENDING TO CREATE
+                optosIIRecord.setPaqEst("90");
+
+                optosIIRecord.setIdPaqEst(getEmbeddedString(tradeDoc, List.of("TradeMessage", "trade", "tradeHeader", "tradeIdentifiers", "tradePackageId")));
+
+                //TODO:DUDA COMO SE CALCULA LA CUENTA
+                optosIIRecord.setConPaqEst(getEmbeddedString(tradeDoc, List.of("TradeMessage", "trade", "tradeHeader", "tradeIdentifiers", "tradePackageId"))); //Duda
+
+                optosIIRecord.setSuby(baseCurrency);
                 optosIIRecord.setCveTit(getEmbeddedString(tradeDoc, List.of("TradeMessage", "trade", "product", "underlyingInstrumentName")));
+
+                //TODO:DUDA no hay mapeo
+                optosIIRecord.setIntEje("0");
+                //TODO:DUDA Como saber si es average
+                optosIIRecord.setIntMon(getEmbeddedString(tradeDoc, List.of("TradeMessage", "trade", "product", "asianFeature", "calculationFrequencyType", "periodMultiplier")));
+
+                //FIJOS
+                optosIIRecord.setNuToEje("1");
+                optosIIRecord.setNumIdOpSby("");
+                optosIIRecord.setNumSuby("0");
+
+                optosIIRecord.setMdaSuby(baseCurrency);
                 optosIIRecord.setPrecioEjer(getEmbeddedString(tradeDoc, List.of("TradeMessage", "trade", "product", "strikeRate")));
                 optosIIRecord.setMdaPrecio(getEmbeddedString(tradeDoc, List.of("TradeMessage", "trade", "product", "quoteCurrency")));
-                optosIIRecord.setPaqEst("90"); //Duda
-                optosIIRecord.setIdPaqEst(getEmbeddedString(tradeDoc, List.of("TradeMessage", "trade", "tradeHeader", "tradeIdentifiers", "tradePackageId")));
-                optosIIRecord.setConPaqEst(getEmbeddedString(tradeDoc, List.of("TradeMessage", "trade", "tradeHeader", "tradeIdentifiers", "tradePackageId"))); //Duda
-                optosIIRecord.setSuby(getEmbeddedString(tradeDoc,List.of("TradeMessage","trade", "product", "underlyingInstrumentName")));
-                optosIIRecord.setIntEje("0");
-                optosIIRecord.setIntMon(getEmbeddedString(tradeDoc, List.of("TradeMessage", "trade", "product", "asianFeature", "calculationFrequencyType", "periodMultiplier")));
-                optosIIRecord.setNuToEje("1"); //Duda
-                optosIIRecord.setNumIdOpSby("    ");//Duda
-                optosIIRecord.setNumSuby("0"); //Duda
-                optosIIRecord.setMdaSuby(getEmbeddedString(tradeDoc,List.of("TradeMessage", "trade", "product","underlyingCurrencyCode")));
                 optosIIRecord.setPreSup(getEmbeddedString(tradeDoc, List.of("TradeMessage", "trade", "product", "barrierFeature", "barrierUpRate"))); //Null en Narendra
                 optosIIRecord.setPreInf(getEmbeddedString(tradeDoc, List.of("TradeMessage", "trade", "product", "barrierFeature", "barrierDownRate")));//Null en Narendra
-                optosIIRecord.setTipDer(getEmbeddedString(tradeDoc, List.of("TradeMessage", "trade", "product", "barrierFeature", "knocktype")));//Null en Narendra
-                optosIIRecord.setRevOp(getEmbeddedString(tradeDoc, List.of("TradeMessage", "trade", "tradeHeader", "sourceSystemProductId", "sourceInstrumentCategory")));
+                optosIIRecord.setModPre(getEmbeddedString(tradeDoc, List.of("TradeMessage", "trade", "product", "barrierFeature", "knocktype")));
+                optosIIRecord.setTipDer(sourceInstrumentCategory);
+                optosIIRecord.setRevOp(sourceInstrumentCategory);
                 optosIIRecord.setBroker(getEmbeddedString(tradeDoc,List.of("TradeMessage","trade","parties", "executingBroker", "partyName")));
-                optosIIRecord.setSocioLiq("Unicamente operaciones OTC"); //Duda
-                optosIIRecord.setCamCom("Unicamente operaciones OTC"); //Duda
-                optosIIRecord.setAgCal("202638"); //Duda
-                optosIIRecord.setNumConf("2107426"); //Duda
-                optosIIRecord.setDelta("0.00"); //Duda
-                optosIIRecord.setNumId(getEmbeddedString(tradeDoc,List.of("TradeMessage", "trade", "tradeIdentifiers", "originatingTradeId", "id")));
+                //FIJOS
+                optosIIRecord.setSocioLiq("07700");
+                optosIIRecord.setCamCom("90");
+
+                //TODO:DUDA mapeo no esta claro o pending to create
+                optosIIRecord.setAgCal("");
+                optosIIRecord.setNumConf(originTradeId);
+
+                //TODO:DUDA que escenario se debe escoger??
+                optosIIRecord.setDelta("0.00");
+
+                optosIIRecord.setNumId(originTradeId);
                 optosIIRecord.setInstLei(getEmbeddedString(tradeDoc,List.of("TradeMessage", "trade", "parties", "counterparty", "partyLei")));
                 optosIIRecord.setUti(getEmbeddedString(tradeDoc,List.of("TradeMessage", "trade","tradeHeader", "tradeIdentifiers", "uniqueTransactionId")));
-                optosIIRecord.setUpi("N/A");
-                optosIIRecord.setIdentificador("ON"); //Duda
-                optosIIRecord.setModPre(getEmbeddedString(tradeDoc, List.of("TradeMessage", "trade", "product", "barrierFeature", "knocktype")));
+                //TODO:PENDING TO CREATE
+                optosIIRecord.setUpi(scotiaUPI);
+                //TODO:MAPEOS mapeo no esta claro
+                optosIIRecord.setIdentificador("ON");
 
-
-
-
-                // Agregar el TradeRecord a la lista
                 optoIIRecords.add(optosIIRecord);
                 index++;
             } catch (Exception e) {
@@ -160,12 +200,12 @@ public class optosIIRecordTransformer implements Processor {
                 if (value instanceof Map) {
                     value = ((Map<?, ?>) value).get(key);
                 } else {
-                    return "N/A";
+                    return StringUtils.EMPTY;
                 }
             }
-            return value != null ? value.toString() : "N/A";
+            return value != null ? value.toString() : StringUtils.EMPTY;
         } catch (Exception e) {
-            return "N/A";
+            return StringUtils.EMPTY;
         }
     }
 
